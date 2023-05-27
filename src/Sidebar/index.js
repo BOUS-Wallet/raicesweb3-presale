@@ -9,7 +9,8 @@ import Projects from "../assets/starred.svg";
 import Documents from "../assets/draft.svg";
 import PowerOff from "../assets/power-off-solid.svg";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Container = styled.div`
   position: fixed;
@@ -224,14 +225,20 @@ const Sidebar = () => {
 
   const [profileClick, setprofileClick] = useState(false);
   const handleProfileClick = () => setprofileClick(!profileClick);
+  const history = useHistory();
 
   return (
     <Container>
+      <div style={{ margin: "1rem" }}>
+        <ConnectButton />
+      </div>
+
       <Button clicked={click} onClick={() => handleClick()}>
         Click
       </Button>
+
       <SidebarContainer>
-        <Logo>
+        <Logo onClick={() => history.push("/")}>
           <img src={logo} alt="logo" />
         </Logo>
         <SlickBar clicked={click}>
@@ -242,7 +249,7 @@ const Sidebar = () => {
             to="/"
           >
             <img src={Home} alt="Home" />
-            <Text clicked={click}>Home</Text>
+            <Text clicked={click}>Inicio</Text>
           </Item>
           <Item
             onClick={() => setClick(false)}
@@ -250,32 +257,9 @@ const Sidebar = () => {
             to="/team"
           >
             <img src={Team} alt="Team" />
-            <Text clicked={click}>Team</Text>
+            <Text clicked={click}>Referidos</Text>
           </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/calender"
-          >
-            <img src={Calender} alt="Calender" />
-            <Text clicked={click}>Calender</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/documents"
-          >
-            <img src={Documents} alt="Documents" />
-            <Text clicked={click}>Documents</Text>
-          </Item>
-          <Item
-            onClick={() => setClick(false)}
-            activeClassName="active"
-            to="/projects"
-          >
-            <img src={Projects} alt="Projects" />
-            <Text clicked={click}>Projects</Text>
-          </Item>
+          {/* s */}
         </SlickBar>
 
         <Profile clicked={profileClick}>
